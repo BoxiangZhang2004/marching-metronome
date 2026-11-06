@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ee">
+  <meta name="description" content="实验用原地踏步节拍器：5秒准备，三分钟60→90→60步/分钟，声音与左右脚提示同步。">
+  <title>原地踏步 · 实验节拍器</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">↔</span><span>STEP / 实验节拍器</span></div>
+      <button id="fullscreen" class="quiet" type="button">全屏显示</button>
+    </header>
+    <section class="intro">
+      <p class="eyebrow">原地踏步 · 统一运动流程</p>
+      <h1>跟着节拍，轻轻踏步。</h1>
+      <p class="description">一声一步，左右交替。小幅抬脚，保持自然呼吸。</p>
+    </section>
+    <section class="instrument" aria-label="踏步节拍器">
+      <div class="instrument-top"><span id="status" aria-live="polite">准备开始</span><span id="tempo">60 → 90 → 60 步/分钟</span></div>
+      <div class="display">
+        <p id="time-label" class="eyebrow">运动剩余时间</p>
+        <div id="clock" class="clock" role="timer" aria-label="运动剩余三分钟">03:00</div>
+        <p id="instruction">点击开始后，有 5 秒时间做好准备</p>
+      </div>
+      <div class="feet" aria-label="左右脚交替提示">
+        <div id="left-foot" class="foot"><span class="foot-letter" aria-hidden="true">L</span><span>左脚</span></div>
+        <div class="beat-separator" aria-hidden="true">·</div>
+        <div id="right-foot" class="foot"><span class="foot-letter" aria-hidden="true">R</span><span>右脚</span></div>
+      </div>
+      <div class="progress" role="progressbar" aria-label="运动进度" aria-valuemin="0" aria-valuemax="180" aria-valuenow="0"><div id="progress-fill"></div></div>
+      <div class="progress-info"><span id="step-count">0 / 240 步</span><span>运动总时长 3 分钟</span></div>
+      <div class="phases">
+        <div data-phase="0"><span class="phase-number">01</span><div><strong>慢速开始</strong><span>30 秒 · 60 步/分</span></div></div>
+        <div data-phase="1"><span class="phase-number">02</span><div><strong>连续踏步</strong><span>2 分钟 · 90 步/分</span></div></div>
+        <div data-phase="2"><span class="phase-number">03</span><div><strong>逐渐减速</strong><span>30 秒 · 60 步/分</span></div></div>
+      </div>
+      <div class="controls"><button id="start" class="primary" type="button">开始本轮 <span aria-hidden="true">↗</span></button><button id="reset" class="secondary" type="button">重置</button></div>
+      <p id="notice" class="notice" aria-live="polite">请先试听，确认受试者能听清节拍。</p>
+      <p id="error" role="alert" hidden></p>
+    </section>
+    <section class="sound-controls" aria-label="声音设置">
+      <button id="test-sound" class="quiet" type="button">♫ 试听节拍</button>
+      <label for="volume">音量 <input id="volume" type="range" min="0" max="1" step="0.05" value="0.7"><output id="volume-value" for="volume">70%</output></label>
+      <a href="audio/marching.wav" download="三分钟踏步节拍器.wav">下载音频 ↗</a>
+    </section>
+    <footer><span>每个受试者使用相同流程 · 暂停后本轮会标记为中断</span><span>感到不适时停止运动</span></footer>
+    <audio id="audio" src="audio/marching.wav" preload="auto"></audio>
+    <audio id="test-audio" src="audio/test.wav" preload="auto"></audio>
+  </main>
+</body>
+</html>
